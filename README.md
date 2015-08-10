@@ -20,7 +20,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Add configuration:
+
+```ruby
+# config/initializers/gravityforms_api.rb
+Gravityforms::Api.configure do |config|
+  config.api_url = 'http://mydomain.com/gravityformsapi/'
+  config.api_key = 'api_key'
+  config.private_key = 'private_key'
+end
+```
 
 ## Contributing
 
