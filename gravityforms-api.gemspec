@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "webmock"
 
   spec.add_runtime_dependency 'gem_config'
+  spec.add_runtime_dependency 'dotenv'
 
   spec.add_dependency "faraday"
   spec.add_dependency "json"

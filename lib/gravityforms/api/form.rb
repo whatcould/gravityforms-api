@@ -10,7 +10,7 @@ module Gravityforms
         @id = attributes["id"]
         @title = attributes["title"]
         @entries = attributes["entries"]
-        @fields = attributes["response"]["fields"]
+        @fields = (attributes.key?("fields") ? attributes["fields"] : "")
       end
 
       def self.find(id)

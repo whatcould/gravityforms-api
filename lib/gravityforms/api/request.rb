@@ -12,7 +12,8 @@ module Gravityforms
         api_key = Gravityforms::Api.configuration.api_key
         api_url = Gravityforms::Api.configuration.api_url
         signature = calculate_signature(route, method, expires, api_key)
-        @url = "#{api_url}#{route}/?api_key=#{api_key}&signature=#{signature}&expires=#{expires}"
+        encode = "?api_key=#{api_key}&expires=#{expires}&signature=#{signature}"
+        @url = "#{api_url}#{route}/#{encode}"
       end
 
       def get
@@ -26,8 +27,10 @@ module Gravityforms
       def calculate_signature(route, method, expires, api_key)
         private_key = Gravityforms::Api.configuration.private_key
         string_to_sign = sprintf("%s:%s:%s:%s", api_key, method, route, expires)
-        hmac = OpenSSL::HMAC.digest('sha1',private_key,string_to_sign).strip
-        signature = CGI.escape(Base64.encode64("#{hmac}\n")).gsub("K%0A", "%3D")
+        hmac = OpenSSL::HMAC.digest('sha1',private_key,string_to_sign)
+        signature = CGI.escape(Base64.encode64("#{hmac}")).gsub("%0A", "")
+        #puts route + " : " + string_to_sign + " : " + signature
+        return signature
       end
     end
   end
