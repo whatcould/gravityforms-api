@@ -30,6 +30,7 @@ module Gravityforms
       def self.submit(id, payload)
         request = Gravityforms::Api::Request.new("forms/#{id}/submissions", "POST")
         response = request.post(payload)
+        response.body
       end
     end
   end
