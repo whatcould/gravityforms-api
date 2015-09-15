@@ -1,6 +1,6 @@
 # Gravityforms::Api
 
-A simple Ruby wrapper of the Gravity Forms Web API.
+A simple Ruby wrapper for the Gravity Forms Web API.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
     $ gem install gravityforms-api
 
-## Usage
+## Configuration
 
 Add configuration:
 
@@ -29,6 +29,46 @@ Gravityforms::Api.configure do |config|
   config.api_key = 'api_key'
   config.private_key = 'private_key'
 end
+```
+
+Or in `.env`:
+
+```text
+API_URL="http://mydomain.com/gravityformsapi/"
+API_KEY="api_key"
+PRIVATE_KEY="private_key"
+```
+
+## Usage
+
+Get all forms:
+
+```ruby
+Gravityforms::Api::Form.all
+```
+
+Get form with ID=1:
+
+```ruby
+Gravityforms::Api::Form.find(1)
+```
+
+Submit a form with ID=1:
+
+```ruby
+json = '{"input_values":{"input_1":"Hello","input_2_3":"John","input_2_6":"Smith"}}'
+response = Gravityforms::Api::Form.submit(1, json)
+```
+
+Example response:
+
+```json
+{
+  "is_valid": true,
+  "page_number": 0,
+  "source_page_number": 1,
+  "confirmation_message": "this is the confirmation [snipped]"
+}
 ```
 
 ## Contributing
