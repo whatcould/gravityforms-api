@@ -7,12 +7,12 @@ module Gravityforms
   module Api
     class Request
       attr_reader :url
-      def initialize(route, method)
-        expires = (Time.now+60*60).to_time.to_i
+      def initialize(route, method, per_page=20, offset=0)
+        expires = (Time.now+60*60).to_i
         api_key = Gravityforms::Api.configuration.api_key
         api_url = Gravityforms::Api.configuration.api_url
         signature = calculate_signature(route, method, expires, api_key)
-        encode = "?api_key=#{api_key}&expires=#{expires}&signature=#{signature}"
+        encode = "?api_key=#{api_key}&expires=#{expires}&signature=#{signature}&paging[page_size]=#{per_page}&paging[offset]=offset"
         @url = "#{api_url}#{route}/#{encode}"
       end
 
